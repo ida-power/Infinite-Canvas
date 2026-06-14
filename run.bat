@@ -1,7 +1,7 @@
 @echo off
 cd /d "%~dp0"
 
-set "PYEXE=%~dp0python\python.exe"
+set "PYEXE=%~dp0python\python3.exe"
 if not exist "%PYEXE%" set "PYEXE=python"
 
 echo Starting ComfyUI-API-Modelscope...

@@ -107,6 +107,16 @@ let recommendInlineOpen = false;
 let providerDragId = '';
 const RECOMMENDED_APIS = [
     {
+        name:'TOK.MOM词元之母',
+        base_url:'https://api.tok.mom',
+        protocol:'apimart',
+        register_url:'https://api.tok.mom/',
+        tagKeys:['api.tagImageModels','api.tagVideoModels','api.tagLlmModels'],
+        icons:['IMG','VID','LLM'],
+        summaryKey:'api.recommendApimartSummary',
+        advantages:['模型类型覆盖广', '适合多节点混合工作流', '异步协议适合长任务']
+    },
+    {
         name:'APIMART',
         base_url:'https://api.apimart.ai',
         protocol:'apimart',
@@ -115,38 +125,6 @@ const RECOMMENDED_APIS = [
         icons:['IMG','VID','LLM'],
         summaryKey:'api.recommendApimartSummary',
         advantages:['模型类型覆盖广', '适合多节点混合工作流', '异步协议适合长任务']
-    },
-    {
-        name:'玉玉API',
-        base_url:'https://yuli.host',
-        protocol:'openai',
-        register_url:'https://yuli.host/register?aff=95JQ',
-        tagKeys:['api.tagImageModels','api.tagVideoModels','api.tagLlmModels'],
-        icons:['IMG','VID','LLM'],
-        summaryKey:'api.recommendYuliSummary',
-        perkKey:'api.recommendYuliPerk',
-        advantages:['模型种类最全', '图像/视频/LLM 全覆盖', '支持签到送积分'],
-        // 添加平台时预填的默认模型列表（含逐模型协议覆盖）
-        image_models:['gpt-image-2', 'gemini-3.1-flash-image-preview', 'gemini-3-pro-image-preview'],
-        chat_models:['gpt-5.5'],
-        video_models:['veo3.1-fast'],
-        model_protocols:{'gemini-3.1-flash-image-preview':'gemini', 'gemini-3-pro-image-preview':'gemini'}
-    },
-    {
-        name:'Agnes AI',
-        base_url:'https://apihub.agnes-ai.com',
-        protocol:'openai',
-        image_request_mode:'openai-json',
-        register_url:'https://platform.agnes-ai.com/settings/apiKeys',
-        tagKeys:['api.tagImageModels','api.tagVideoModels','api.tagLlmModels'],
-        icons:['IMG','VID','LLM'],
-        summaryKey:'api.recommendAgnesSummary',
-        perkKey:'api.recommendAgnesFree',
-        perkClass:'recommend-free-tag',
-        advantages:['免费额度可用', '支持 Agnes 图像与视频接口', 'OpenAI 兼容地址配置简单'],
-        image_models:['agnes-image-2.1-flash', 'agnes-image-2.0-flash'],
-        chat_models:[],
-        video_models:['agnes-video-v2.0']
     },
     {
         name:'FHL',
@@ -2014,7 +1992,7 @@ function renderRecommendApi(){
                 <div class="recommend-account-title">${escapeHtml(tr('api.recommendAccountTitle'))}</div>
                 <div class="recommend-account-desc">${escapeHtml(tr('api.recommendAccountDesc'))}</div>
             </div>
-            <a class="onboarding-key-btn recommend-account-link" href="https://bewild.ai?code=WULIDX" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" class="w-3.5 h-3.5"></i><span>${escapeHtml(tr('api.viewPlans'))}</span></a>
+            <a class="onboarding-key-btn recommend-account-link" href="#"  rel="noopener noreferrer"><i data-lucide="external-link" class="w-3.5 h-3.5"></i><span>${escapeHtml(tr('api.viewPlans'))}</span></a>
         </div>
     `;
     refreshIcons();

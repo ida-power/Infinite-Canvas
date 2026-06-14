@@ -751,6 +751,151 @@ def default_api_providers():
             "volcengine_project_name": VOLCENGINE_DEFAULT_PROJECT_NAME,
             "volcengine_region": VOLCENGINE_DEFAULT_REGION,
         },
+        {
+            "id": "custom-api-5",
+            "name": "tokmom-banana4K",
+            "base_url": "https://api.tok.mom",
+            "protocol": "openai",
+            "image_request_mode": "openai",
+            "image_generation_endpoint": "",
+            "image_edit_endpoint": "",
+            "enabled": True,
+            "primary": False,
+            "canvas_hidden": False,
+            "image_models": [
+                "gemini-3.1-flash-image"
+            ],
+            "chat_models": [],
+            "video_models": [],
+            "model_protocols": {},
+            "ms_loras": [],
+            "ms_defaults_version": 0,
+            "rh_apps": [],
+            "rh_workflows": [],
+            "volcengine_project_name": "",
+            "volcengine_region": "",
+            "has_key": True,
+            "key_preview": "••••••••wjp2",
+            "key_env": "API_PROVIDER_CUSTOM_API_5_KEY",
+            "avatar_platform": "tokmom",
+            "supports_avatar": False
+        },
+        {
+            "id": "custom-api-6",
+            "name": "tokmom-image2",
+            "base_url": "https://api.tok.mom",
+            "protocol": "openai",
+            "image_request_mode": "openai",
+            "image_generation_endpoint": "",
+            "image_edit_endpoint": "",
+            "enabled": True,
+            "primary": False,
+            "canvas_hidden": False,
+            "image_models": [
+                "gpt-image-2"
+            ],
+            "chat_models": [],
+            "video_models": [],
+            "model_protocols": {},
+            "ms_loras": [],
+            "ms_defaults_version": 0,
+            "rh_apps": [],
+            "rh_workflows": [],
+            "volcengine_project_name": "",
+            "volcengine_region": "",
+            "has_key": True,
+            "key_preview": "••••••••Jjwh",
+            "key_env": "API_PROVIDER_CUSTOM_API_6_KEY",
+            "avatar_platform": "tokmom",
+            "supports_avatar": False
+        },
+        {
+            "id": "custom-api-9",
+            "name": "tokmom-seedance2.0",
+            "base_url": "https://api.tok.mom",
+            "protocol": "openai",
+            "image_request_mode": "openai",
+            "image_generation_endpoint": "",
+            "image_edit_endpoint": "",
+            "enabled": True,
+            "primary": False,
+            "canvas_hidden": False,
+            "image_models": [],
+            "chat_models": [],
+            "video_models": [
+                "doubao-seedance-2.0"
+            ],
+            "model_protocols": {},
+            "ms_loras": [],
+            "ms_defaults_version": 0,
+            "rh_apps": [],
+            "rh_workflows": [],
+            "volcengine_project_name": "",
+            "volcengine_region": "",
+            "has_key": True,
+            "key_preview": "••••••••wR0Y",
+            "key_env": "API_PROVIDER_CUSTOM_API_9_KEY",
+            "avatar_platform": "tokmom",
+            "supports_avatar": True
+        },
+        {
+            "id": "custom-api-8",
+            "name": "tokmom-Banana",
+            "base_url": "https://api.tok.mom",
+            "protocol": "openai",
+            "image_request_mode": "openai",
+            "image_generation_endpoint": "",
+            "image_edit_endpoint": "",
+            "enabled": True,
+            "primary": False,
+            "canvas_hidden": False,
+            "image_models": [
+                "gemini-3.1-flash-image"
+            ],
+            "chat_models": [],
+            "video_models": [
+                "doubao-seedance-2.0"
+            ],
+            "model_protocols": {},
+            "ms_loras": [],
+            "ms_defaults_version": 0,
+            "rh_apps": [],
+            "rh_workflows": [],
+            "volcengine_project_name": "",
+            "volcengine_region": "",
+            "has_key": False,
+            "key_preview": "",
+            "key_env": "API_PROVIDER_CUSTOM_API_8_KEY",
+            "avatar_platform": "tokmom",
+            "supports_avatar": True
+        },
+        {
+            "id": "custom-api",
+            "name": "tokmom-image",
+            "base_url": "https://api.tok.mom",
+            "protocol": "openai",
+            "image_request_mode": "openai",
+            "image_generation_endpoint": "",
+            "image_edit_endpoint": "",
+            "enabled": True,
+            "primary": False,
+            "canvas_hidden": False,
+            "image_models": [],
+            "chat_models": [],
+            "video_models": [],
+            "model_protocols": {},
+            "ms_loras": [],
+            "ms_defaults_version": 0,
+            "rh_apps": [],
+            "rh_workflows": [],
+            "volcengine_project_name": "",
+            "volcengine_region": "",
+            "has_key": True,
+            "key_preview": "••••••••iEk8",
+            "key_env": "API_PROVIDER_CUSTOM_API_KEY",
+            "avatar_platform": "tokmom",
+            "supports_avatar": False
+        }
     ]
 
 def merge_default_api_providers(providers):
@@ -1160,13 +1305,15 @@ def normalize_provider(item):
 
 def load_api_providers():
     defaults = default_api_providers()
+    logging.info(len(defaults))
+    print(len(defaults))
     if not os.path.exists(API_PROVIDERS_FILE):
         return merge_default_api_providers(defaults)
     try:
         with open(API_PROVIDERS_FILE, "r", encoding="utf-8") as f:
             raw = json.load(f)
         providers = [normalize_provider(item) for item in raw if isinstance(item, dict)]
-        return merge_default_api_providers(providers or defaults)
+        return merge_default_api_providers(providers and defaults)
     except Exception as e:
         print(f"加载 API 平台配置失败: {e}")
         return defaults
@@ -14214,5 +14361,6 @@ if __name__ == "__main__":
     # 关闭服务端协议级 WebSocket ping：部分客户端（如 PS UXP 面板）不会自动回 pong，
     # 默认 20s ping/20s 超时会把这些连接每隔一会儿就踢掉造成"频繁断连"。
     # 客户端有自己的应用层心跳 + 断线重连兜底，这里禁用协议 ping 更稳。
-    uvicorn.run(app, host="0.0.0.0", port=3000,
-                ws_ping_interval=None, ws_ping_timeout=None)
+    uvicorn.run("main:app", host="0.0.0.0", port=3000,
+                ws_ping_interval=None, ws_ping_timeout=None,
+    reload=True)
