@@ -1,0 +1,17 @@
+services:
+  infinite-canvas:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=Asia/Shanghai
+    networks:
+      - soft_net
+
+networks:
+  soft_net:
+    external: true
